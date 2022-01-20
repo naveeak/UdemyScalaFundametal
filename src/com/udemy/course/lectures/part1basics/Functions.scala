@@ -49,7 +49,7 @@ object Functions extends App{
   func2("ak",22)
 
   def factorial(n:Int):Int={
-    if(n==1) 1
+    if(n<=0) 1
     else n*factorial(n-1)
   }
 
