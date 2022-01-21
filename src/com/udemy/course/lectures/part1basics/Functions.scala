@@ -75,3 +75,9 @@ object Functions extends App{
 
 
 }
+
+//type inference
+//complier detect values and automatically plcaae it
+//3 +"s"==>int +string ==>string
+//function retirn type inference also possible but not for recursive function
+//
