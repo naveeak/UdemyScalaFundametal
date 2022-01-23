@@ -33,6 +33,7 @@ object Objects extends App{
   //we can write same class for the object
   //object have non varing variable ie static variable
   //if we have both pbject and class with same is called companion class
+  //can access eac others(object and class) private method
 
   class Person(val name:String){ //companion class
 
