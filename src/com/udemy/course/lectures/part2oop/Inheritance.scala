@@ -1,6 +1,6 @@
 package com.udemy.course.lectures.part2oop
 
-object InheritanceTraits extends App{
+object Inheritance extends App{
   //scala onyl has single class inheritance
   //only can extends one member
 
