@@ -98,14 +98,14 @@ abstract class MyList2G[+A] { //if +A add method nee to be modified
 /*
 implementation 2 as done in lecture
  */
-object EmptyLinkedList2G extends MyList2G[Nothing]{
+object EmptyLinkedList2G extends MyList2G[Nothing]{ //empty is taken as item with nothign so here nothing is extended
   override def head(): Nothing = throw new NoSuchElementException
 
   override def tail(): MyList2G[Nothing] = throw new NoSuchElementException
 
   override def isEmpty(): Boolean = true
 
-   def add[B>:Nothing](ele: B): MyList2G[B] = new LinkedList2G(ele,EmptyLinkedList2G)
+   def add[B>:Nothing](ele: B): MyList2G[B] = new LinkedList2G(ele,EmptyLinkedList2G) //list changes from a nothign to list of type B
 
   override def toString: String = "[ ]"
 }
