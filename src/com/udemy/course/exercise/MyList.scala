@@ -26,13 +26,17 @@ each element is a object with value and nextEle object reference only head point
  */
 class LinkedList(var headEle:Element=null) extends MyList{
 
-  override def head(): Int = headEle.value
+  override def head(): Int = {
+    if(headEle !=null) headEle.value
+    else throw new NoSuchElementException
+  }
 
   override def tail(): MyList = {
     /*
     new list will pointing the head nex element address
      */
-    new LinkedList(headEle.nextEle)
+    if(headEle.nextEle !=null) new LinkedList(headEle.nextEle)
+    else throw new NoSuchElementException
   }
 
   override def isEmpty(): Boolean = if(headEle == null) true else false
@@ -73,4 +77,40 @@ object Element {
   def apply(value:Int,nextEle:Element):Element=new Element(value, nextEle)
 }
 
+/*
+implementation 2 as done in lecture
+ */
+object EmptyLinkedList2 extends MyList{
+  override def head(): Int = throw new NoSuchElementException
+
+  override def tail(): MyList = throw new NoSuchElementException
+
+  override def isEmpty(): Boolean = true
+
+  override def add(ele: Int): MyList = new LinkedList2(ele,EmptyLinkedList2)
+
+  override def toString: String = "[ ]"
+}
+
+class LinkedList2(head:Int,tail:MyList) extends MyList{
+  override def head(): Int = head
+
+  override def tail(): MyList = tail
+
+  override def isEmpty(): Boolean = false
+
+  override def add(ele: Int): MyList = new LinkedList2(ele,this)
+
+  override def toString: String = {
+    @tailrec
+    def toStringHelper(list:MyList,acc:String=""): String ={
+      if(list.isEmpty()) acc
+      else {
+        toStringHelper(list.tail(), list.head().toString+" "+ acc)
+      }
+    }
+
+    "[ "+toStringHelper(this)+"]"
+  }
+}
 
