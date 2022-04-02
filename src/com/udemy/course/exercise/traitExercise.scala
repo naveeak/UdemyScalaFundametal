@@ -29,7 +29,7 @@ object traitExercise extends App{
 
     override def isEmpty(): Boolean = true
 
-    override def add[B >: Nothing](ele: B): MyCollection[B] = new List[B](ele,EmptyList)
+    override def add[B >: Nothing](ele: B): MyCollection[B] =  List[B](ele,EmptyList)
 
     override def toString: String = "[ ]"
 
@@ -42,14 +42,14 @@ object traitExercise extends App{
     def ++[B>:Nothing](myCollection: MyCollection[B]):MyCollection[B]=myCollection
   }
 
-  class List[+A](val headEle:A,val tailList:MyCollection[A]) extends  MyCollection[A]{
+  case class List[+A](val headEle:A,val tailList:MyCollection[A]) extends  MyCollection[A]{
     override def head(): A = headEle
 
     override def tail(): MyCollection[A] = tailList
 
     override def isEmpty(): Boolean = false
 
-    override def add[B >: A](ele: B): MyCollection[B] = new List[B](ele,this)
+    override def add[B >: A](ele: B): MyCollection[B] = List[B](ele,this)
 
     override def toString: String = {
       def toStringHelper(List:MyCollection[A],acc:String=""):String={
@@ -60,13 +60,13 @@ object traitExercise extends App{
     }
 
     override def map[B](transformer: MyTransformer[A, B]): MyCollection[B] = {
-      new List(transformer.transform(headEle),tailList.map(transformer))
+       List(transformer.transform(headEle),tailList.map(transformer))
     }
 
     override def flatMap[B](transformer: MyTransformer[A, MyCollection[B]]): MyCollection[B] = transformer.transform(headEle) ++ tailList.flatMap(transformer)
 
     override def filter(predicate: MyPredicate[A]): MyCollection[A] = {
-      if(predicate.isPasses(headEle))  new List(headEle,tailList.filter(predicate))
+      if(predicate.isPasses(headEle))   List(headEle,tailList.filter(predicate))
       else tailList.filter(predicate)
     }
 
@@ -77,6 +77,11 @@ object traitExercise extends App{
   var myList5:List[String]= new List("one",new List("two",new List("three",EmptyList)))
   println(myList4)
   println(myList5)
+
+  var myList41:List[Int]=  List(1, List(2, List(3,EmptyList)))
+  var myList51:List[String]=  List("one", List("two", List("three",EmptyList)))
+  println(myList41)
+  println(myList51)
 
   println(myList4.map(new MyTransformer[Int,Int] {
     override def transform[B <: Int](data: B): Int = data*5
